@@ -35,6 +35,7 @@ cloud_config = {
         repo_file("docker/caddy/Dockerfile"),
         repo_file("docker/caddy/Caddyfile"),
         repo_file("scripts/sync-keys.sh", mode="0755"),
+        repo_file("scripts/reap-tunnels.sh", mode="0755"),
         {
             "path": "/opt/tunnel/.env",
             "content": f"DO_DNS_TOKEN={os.environ['DIGITALOCEAN_TOKEN']}\n",
@@ -43,6 +44,10 @@ cloud_config = {
         {
             "path": "/etc/cron.d/sync-keys",
             "content": "* * * * * root /opt/tunnel/scripts/sync-keys.sh\n",
+        },
+        {
+            "path": "/etc/cron.d/reap-tunnels",
+            "content": "* * * * * root /opt/tunnel/scripts/reap-tunnels.sh\n",
         },
     ],
     "runcmd": [
