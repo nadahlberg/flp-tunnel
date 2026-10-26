@@ -33,6 +33,10 @@ To ride through network drops, the same thing via autossh:
 autossh -M 0 -p 2222 -R cl-nathan:80:localhost:8000 tunnel.flp-tunnel.xyz
 ```
 
+Tunnels have a 12-hour maximum lifetime: a cron on the server kills older
+sessions, so a forgotten tunnel never stays public forever. Reconnect
+whenever you need more time — autossh (above) does that automatically.
+
 The app behind the tunnel still has to accept its public hostname — for
 Django that's `ALLOWED_HOSTS`, `CSRF_TRUSTED_ORIGINS` and
 `SECURE_PROXY_SSL_HEADER`; for the MCP server, `MCP_BASE_URL`.
